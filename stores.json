@@ -1,0 +1,41 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.5575118,
+          48.1364443
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "id": 100,
+        "category": "pharmacy",
+        "hours": "10am - 6pm",
+        "description": "no desc...",
+        "name": "Dr. Rihani Apotheke",
+        "phone": "+49 89 54 88 67 70"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.5773382,
+          48.142874
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "id": 101,
+        "category": "pharmacy",
+        "hours": "10am - 6pm",
+        "description": "no desc...",
+        "name": "Apotheke am Odeonsplatz",
+        "phone": "+49 89 2 80 22 20"
+      }
+    }
+  ]
+}
