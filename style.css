@@ -27,8 +27,7 @@ html,body {
   left:0rem;
   right: 0rem;
   background:#359ead;
-  z-index: 999;
-  padding: 8px;
+  z-index: 10;
 }
 
 .pharmacy-card {
@@ -36,7 +35,7 @@ html,body {
   position: absolute;
   bottom:5rem;
   left:1rem;
-  right: 2rem;
+  right: 1rem;
   box-shadow: 0 3px 6px rgba(0,0,0,0.06), 0 3px 6px rgba(0,0,0,0.13);  
   border-radius: 3px;  
   background:white;  
@@ -194,11 +193,11 @@ fieldset {
 }
 
 .bottom-table{
-  width:calc(100% - 3rem);
-  position:absolute;
-  bottom:1rem;
-  left:0.75rem;
-  right:1rem;
+  width: calc(100% - 2rem);
+  position: absolute;
+  bottom: 1rem;
+  left: 0.75rem;
+  right: 1rem;
 }
 
 @media screen and (max-width: 1000px) {
