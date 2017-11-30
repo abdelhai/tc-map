@@ -47,7 +47,6 @@ function initMap() {
 
   // Show the information for a store when its marker is clicked.
   map.data.addListener('click', event => {
-
     const category = event.feature.getProperty('category');
     const name = event.feature.getProperty('name');
     const description = event.feature.getProperty('description');
@@ -67,6 +66,7 @@ function initMap() {
 
     infoWindow.setContent(content);
     infoWindow.setPosition(position);
+    map.setCenter(position);
     infoWindow.open(map);
   });
 
