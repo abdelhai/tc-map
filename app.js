@@ -19,7 +19,7 @@ function initMap() {
 
   // Create the map.
   const map = new google.maps.Map(document.getElementsByClassName('map')[0], {
-    zoom: 16,
+    zoom: 14,
     center: { lat: 48.1351, lng: 11.5820 },
     mapTypeControl: false,
     streetViewControl: false,
@@ -62,7 +62,10 @@ function initMap() {
         <h2>${name}</h2><p>${description}</p>
         <p><b>Open:</b> ${hours}<br/><b>Phone:</b> ${phone}</p>
         <p><img src="https://maps.googleapis.com/maps/api/streetview?size=350x120&location=${position.lat()},${position.lng()}&key=${apiKey}"></p>
-        <p><a href="#" onclick="setapoid(${id})" >Choose</a></p>
+        <p>
+        <a href="#" onclick="setapoid(${id})" >Abholen</a>
+        <a href="#" onclick="setapoid(${id})" >Liefern lassen</a>
+        </p>
       </div>
     `;
 

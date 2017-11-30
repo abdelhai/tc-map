@@ -16,10 +16,10 @@ html,body {
     border-radius: 3px;
     padding: 8px;
 }
-@media only screen and (max-width: 1000px) {
+@media (max-width: 900px) {
   .controls {
     width: 90%;
-    left:4%;    
+    left:4%;
   }
 }
 
