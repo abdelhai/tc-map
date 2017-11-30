@@ -208,6 +208,8 @@ fieldset {
   cursor: pointer;
 }
 
+
+
 @media screen and (max-width: 600px) {
   .controls {
     width: 90%;
