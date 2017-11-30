@@ -19,9 +19,11 @@ function initMap() {
 
   // Create the map.
   const map = new google.maps.Map(document.getElementsByClassName('map')[0], {
-    zoom: 12,
+    zoom: 16,
     center: { lat: 48.1351, lng: 11.5820 },
-    mapTypeControl: false
+    mapTypeControl: false,
+    streetViewControl: false,
+    fullscreenControl: false
   });
 
 
