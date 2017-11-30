@@ -34,13 +34,12 @@ fieldset {
 }
 
 .query {
-    height: 32px;
     border: none;
-    padding: 1rem;
-    font-size: 24px;
+    padding: 4px;
+    font-size: 18px;
     color: rgba(0,0,0,0.8);
     outline: none;
-    margin-left: 2rem;
+    margin-left: 100px;
     width: calc(100% - 3rem);
 }
 
@@ -48,8 +47,8 @@ fieldset {
     width: 24px;
     height: 24px;
     position: absolute;
-    top: 1rem;
-    left: 0.8rem;
+    top: 12px;
+    left: 1rem;
 }
 
 .query::-webkit-input-placeholder {
