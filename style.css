@@ -25,7 +25,6 @@ fieldset {
 
 .query {
     height: 40px;
-    width: 100%;
     border: none;
     padding: 1rem;
     font-size: 1.2rem;
@@ -106,10 +105,35 @@ fieldset {
 .rkmd-checkbox .input-checkbox input[type="checkbox"]:checked + .checkbox:before {
   content: "\e834";
 }
-
+.rkmd-checkbox .input-checkbox input[type="checkbox"]:active:not(:disabled) + .checkbox:before {
+  -webkit-transform: scale3d(0.88, 0.88, 1);
+          transform: scale3d(0.88, 0.88, 1);
+}
+.rkmd-checkbox .input-checkbox input[type="checkbox"]:disabled + .checkbox:before {
+  color: rgba(0, 0, 0, 0.157) !important;
+}
+.rkmd-checkbox.checkbox-light label, .rkmd-checkbox.checkbox-light .label {
+  color: #FFF;
+}
+.rkmd-checkbox.checkbox-light input[type="checkbox"] + .checkbox:before {
+  color: #FFF;
+}
+.rkmd-checkbox.checkbox-light input[type="checkbox"]:disabled + .checkbox:before {
+  color: #5d5d5d !important;
+}
+.rkmd-checkbox.checkbox-light.checkbox-rotate input[type="checkbox"] + .checkbox:before {
+  border-color: #FFF;
+}
+.rkmd-checkbox.checkbox-light.checkbox-rotate input[type="checkbox"]:disabled + .checkbox:before {
+  border-color: #5d5d5d !important;
+}
 .rkmd-checkbox label, .rkmd-checkbox .label {
   cursor: pointer;
 }
+
+/* ----------------------------------------------------------------------
+  Normal Checkbox Color - by Ravikumar Chauhan
+------------------------------------------------------------------------- */
 .rkmd-checkbox:not(.checkbox-rotate) .checkbox-lightBlue input[type="checkbox"]:checked + .checkbox:before {
   color: #359ead;
 }
