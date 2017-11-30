@@ -127,12 +127,11 @@ function initMap() {
 
     // infoWindow.setContent(content);
     // infoWindow.setPosition(position);
-    console.log(displayCard());
     document.getElementById('card-container').innerHTML = displayCard();
     document.getElementById('card-container').style.display = 'block';
 
     map.setCenter(position);
-    infoWindow.open(map);
+    //infoWindow.open(map);
   });
 
 }
