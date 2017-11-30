@@ -16,7 +16,8 @@
         "hours": "10am - 6pm",
         "description": "no desc...",
         "name": "Dr. Rihani Apotheke",
-        "phone": "+49 89 54 88 67 70"
+        "phone": "+49 89 54 88 67 70",
+        "email": "hi@apo.de"
       }
     },
     {

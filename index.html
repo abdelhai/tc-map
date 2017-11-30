@@ -1,24 +1,38 @@
 <html>
 <head>
   <title>TC Apotheken.de</title>
-  <style>
-    .map {height: 100%;}
-    html, body {height: 100%; margin: 0; padding: 0;}
-  </style>
+    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+  <link rel="stylesheet" href="style.css">
 <head>
 <body>
-  <div>
-    <input type="text" name="search" id="search">
-    <label>Open Now
-    <input type="checkbox" name="open-now" id="open">
-    </label>
-    <label>Delivery
-      <input type="checkbox" name="delivery" id="delivery">
-    </label>
-  </div>
-  <input type="button" value="Say hello" onClick="showAndroidToast('Hello Android!')" />
+  <div class="wrapper">
+    <div class="controls">
+      <form class="form">
+        <input class="query" type="text" placeholder="Search">
+        <fieldset>
+<div class="rkmd-checkbox">
+  <label class="input-checkbox checkbox-lightBlue">
+    <input type="checkbox" id="checkbox-1" checked>
+    <span class="checkbox"></span>
+  </label>
+  <label for="checkbox-1" class="label">Checkbox</label>
+</div>
 
-  <div class="map"></div>
+<div class="rkmd-checkbox">
+  <label class="input-checkbox checkbox-lightBlue">
+    <input type="checkbox" id="checkbox-1" checked>
+    <span class="checkbox"></span>
+  </label>
+  <label for="checkbox-1" class="label">Checkbox</label>
+</div>
+
+        </fieldset>
+      </form>
+    </div>
+
+    <div class="map"></div>
+
+  </div>
 
   <script src="app.js"></script>
   <script async defer

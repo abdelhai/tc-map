@@ -1,0 +1,36 @@
+<html>
+<head>
+  <title>TC Apotheken.de</title>
+  <link rel="stylesheet" href="style.css">
+<head>
+<body>
+  <div class="wrapper">
+    <div class="controls">
+      <label>Location
+        <input class="search" type="text" name="search" id="search">
+      </label>
+
+      <label>Open Now
+        <input type="checkbox" name="open-now" id="open">
+      </label>
+
+      <label>Delivery
+        <input type="checkbox" name="delivery" id="delivery">
+      </label>
+    </div>
+
+  <div class="map"></div>
+
+  </div>
+
+  <script src="app.js"></script>
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALb9lFprUdP6ot-Wc-U1QCWvX3PXNgLu0&callback=initMap">
+  </script>
+<script type="text/javascript">
+    function showAndroidToast(toast) {
+        Android.showToast(toast);
+    }
+</script>
+</body>
+</html>
