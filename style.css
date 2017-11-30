@@ -155,3 +155,8 @@ fieldset {
 .rkmd-checkbox:not(.checkbox-rotate) .checkbox-lightBlue input[type="checkbox"]:checked + .checkbox:before {
   color: #359ead;
 }
+
+.popup {
+    margin-left:220px;
+    margin-bottom:20px;
+}

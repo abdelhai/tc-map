@@ -57,16 +57,12 @@ function initMap() {
     const id = event.feature.getProperty('id');
 
     const content = sanitizeHTML`
-      <img style="float:left; width:200px; margin-top:30px" src="img/logo_${category}.png">
-      <div style="margin-left:220px; margin-bottom:20px;">
         <h2>${name}</h2><p>${description}</p>
         <p><b>Open:</b> ${hours}<br/><b>Phone:</b> ${phone}</p>
-        <p><img src="https://maps.googleapis.com/maps/api/streetview?size=350x120&location=${position.lat()},${position.lng()}&key=${apiKey}"></p>
         <p>
-        <a href="#" onclick="setapoid(${id})" >Abholen</a>
-        <a href="#" onclick="setapoid(${id})" >Liefern lassen</a>
+        <a href="#" class="cta-btn" onclick="setapoid(${id})" >Abholen</a>
+        <a href="#" class="cta-btn" onclick="setapoid(${id})" >Liefern lassen</a>
         </p>
-      </div>
     `;
 
     infoWindow.setContent(content);
