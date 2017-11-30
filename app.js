@@ -34,8 +34,8 @@ function initMap() {
   map.data.setStyle(feature => {
     return {
       icon: {
-        url: `img/icon_${feature.getProperty('category')}.png`,
-        scaledSize: new google.maps.Size(34, 49)
+        url: `img/icons8-marker-80.png`,
+        scaledSize: new google.maps.Size(40, 40)
       }
     };
   });
@@ -71,3 +71,7 @@ function initMap() {
   });
 
 }
+
+document.getElementById('close-details').addEventListener('click', event => {
+  document.getElementById('pharmacy-details').style.display = 'none';
+})

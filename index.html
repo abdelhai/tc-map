@@ -1,6 +1,7 @@
 <html>
 <head>
   <title>TC Apotheken.de</title>
+<meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
@@ -45,23 +46,23 @@
 
     <div class="map"></div>
 
-    <div class="pharmacy-div">
+    <div id="pharmacy-details" class="pharmacy-div">
       <div class="pharmacy-card">
         <table style="width:100%;">
             <tr style="width:100%;">
                 <td style="width: 95%">
-                    <b>Name of the pharmacy</b>
+                    <b>Dr. Rihani Apotheke</b>
                 </td>
                 <td style="width: 5%">
-                    <img src="img/ic_search_black_24px.svg"></img>                            
+                    <img id="close-details" src="img/0822-cross2.svg" alt="Schließen"></img>
                 </td>
             </tr>
-        </table>  
+        </table>
         <br>
         <table style="width:100%;">
             <tr style="width:100%;">
                 <td style="width: 10%">
-                    <img src="img/ic_search_black_24px.svg"></img>                    
+                    <img src="img/0379-map-marker.svg"></img>
                 </td>
                 <td style="width: 80%">
                     Landwehrstraße 83, 80336 München
@@ -69,7 +70,7 @@
             </tr>
             <tr style="width:100%;">
                 <td style="width: 10%">
-                    <img src="img/ic_search_black_24px.svg"></img>                    
+                    <img src="img/0363-telephone.svg"></img>
                 </td>
                 <td style="width: 80%">
                     089 21934722
@@ -77,10 +78,10 @@
             </tr>
             <tr style="width:100%;">
                 <td style="width: 10%">
-                    <img src="img/ic_search_black_24px.svg"></img>                    
+                    <img src="img/0803-magnifier.svg"></img>
                 </td>
                 <td style="width: 80%">
-                    Open now:  11AM–10PM                    
+                    OÖffnungszeiten:  11AM–10PM
                 </td>
             </tr>
         </table>
@@ -97,16 +98,17 @@
           </tr>
       </table>
     </div>
+
   </div>
 
   <script src="app.js"></script>
   <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALb9lFprUdP6ot-Wc-U1QCWvX3PXNgLu0&callback=initMap">
   </script>
-<script type="text/javascript">
+<!--<script type="text/javascript">
     function showAndroidToast(toast) {
         Android.showToast(toast);
     }
-</script>
+</script>-->
 </body>
 </html>

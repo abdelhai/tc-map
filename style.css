@@ -36,9 +36,9 @@ html,body {
   bottom:5rem;
   left:1rem;
   right: 1rem;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.06), 0 3px 6px rgba(0,0,0,0.13);  
-  border-radius: 3px;  
-  background:white;  
+  box-shadow: 0 3px 6px rgba(0,0,0,0.06), 0 3px 6px rgba(0,0,0,0.13);
+  border-radius: 3px;
+  background:white;
 }
 
 fieldset {
@@ -189,7 +189,7 @@ fieldset {
 
 .btn:hover, .btn:focus {
   background-color: #FF4B4B;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .8);  
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .8);
 }
 
 .bottom-table{
@@ -200,14 +200,23 @@ fieldset {
   right: 1rem;
 }
 
-@media screen and (max-width: 1000px) {
+.btn {
+  cursor: pointer;
+}
+
+#close-details {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
   .controls {
     width: 90%;
-    left:4%;    
+    left:3%;
+    right: 7%
   }
 }
 
-@media screen and (min-width: 1000px){
+@media screen and (min-width: 800px){
   .pharmacy-card{
     margin-left: 30%;
     width: 33%;
