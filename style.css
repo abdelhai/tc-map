@@ -6,15 +6,21 @@ html,body {
 }
 .map {height: 100%;}
 .controls {
-    width: 30%;
+    width: 600px;
     position: absolute;
-    top:2rem;
-    left:2rem;
+    top:0.5rem;
+    left:0.5rem;
     background:white;
     z-index: 999;
     box-shadow: 0 3px 6px rgba(0,0,0,0.06), 0 3px 6px rgba(0,0,0,0.13);
     border-radius: 3px;
     padding: 8px;
+}
+@media only screen and (max-width: 1000px) {
+  .controls {
+    width: 90%;
+    left:4%;    
+  }
 }
 
 fieldset {
@@ -23,29 +29,42 @@ fieldset {
     margin: 0;
 }
 
+.form{
+  margin-bottom: 0;
+}
+
 .query {
     height: 40px;
     border: none;
     padding: 1rem;
-    font-size: 1.2rem;
+    font-size: 24px;
     color: rgba(0,0,0,0.8);
     outline: none;
+    margin-left: 2rem;
+    width: calc(100% - 3rem);
+}
 
+.search-icon{
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 1rem;
+    left: 0.8rem;
 }
 
 .query::-webkit-input-placeholder {
-    color:    #47A0E0;
+    color:    #359ead;
 }
 .query:-moz-placeholder {
-    color:    #47A0E0;
+    color:    #359ead;
     opacity: 1;
 }
 .query::-moz-placeholder {
-    color:    #47A0E0;
+    color:    #359ead;
     opacity: 1;
 }
 .query:-ms-input-placeholder {
-    color:    #47A0E0;
+    color:    #359ead;
 }
 
 
