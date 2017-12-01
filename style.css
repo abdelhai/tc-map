@@ -52,10 +52,10 @@ fieldset {
 }
 
 .query {
-    height: 40px;
+    height: 32px;
     border: none;
     padding: 1rem;
-    font-size: 24px;
+    font-size: 18px;
     color: rgba(0,0,0,0.8);
     outline: none;
     margin-left: 2rem;
