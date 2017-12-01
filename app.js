@@ -85,7 +85,10 @@ const selectOption = (opt) => {
 
   window.TC_PHARMACY.kind = opt;
   let Android = window.Android || {};
-  Android.pharmaOrder(window.TC_PHARMACY)
+  if (window.Android) {
+    Android.pharmaOrder(window.TC_PHARMACY)
+  }
+
   return window.TC_PHARMACY;
 }
 
