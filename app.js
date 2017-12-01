@@ -1,11 +1,25 @@
-function displayCard() {
+window.TC_PHARMACY;
+function sanitizeHTML(strings) {
+  const entities = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+  let result = strings[0];
+  for (let i = 1; i < arguments.length; i++) {
+    result += String(arguments[i]).replace(/[&<>'"]/g, (char) => {
+      return entities[char];
+    });
+    result += strings[i];
+  }
+  return result;
+}
+
+function createCard(pharmaInfo) {
+  let {name, phone, hours} = pharmaInfo;
   return sanitizeHTML`
     <div id="pharmacy-details" class="pharmacy-div">
       <div class="pharmacy-card">
         <table style="width:100%;">
             <tr style="width:100%;">
                 <td style="width: 95%">
-                    <b>{name}</b>
+                    <b>${name}</b>
                 </td>
                 <td style="width: 5%">
                     <img id="close-details" src="img/0822-cross2.svg" alt="Schließen" onclick="closeCard()"></img>
@@ -27,7 +41,7 @@ function displayCard() {
                     <img src="img/0363-telephone.svg"></img>
                 </td>
                 <td style="width: 80%">
-                    {phone}
+                    ${phone}
                 </td>
             </tr>
             <tr style="width:100%;">
@@ -35,7 +49,7 @@ function displayCard() {
                     <img src="img/0803-magnifier.svg"></img>
                 </td>
                 <td style="width: 80%">
-                    Öffnungszeiten: {hours}
+                    Öffnungszeiten: ${hours}
                 </td>
             </tr>
         </table>
@@ -44,10 +58,10 @@ function displayCard() {
       <table class="bottom-table">
           <tr style="width:100%;">
               <td style="width: 50%;align-content:center">
-                  <button class="btn" style="margin-right:8px;" type="button">DELIVERY</button>
+                  <button onclick="selectOption('delivery')" class="btn" style="margin-right:8px;" type="button">DELIVERY</button>
               </td>
               <td style="width: 50%;align-content:center">
-                  <button class="btn" style="margin-left:8px;" type="button">PICK UP</button>
+                  <button onclick="selectOption('pickup')" class="btn" style="margin-left:8px;" type="button">PICK UP</button>
               </td>
           </tr>
       </table>
@@ -55,26 +69,25 @@ function displayCard() {
 `
 }
 
+const showCard = (pharmaInfo) => {
+  document.getElementById('card-container').innerHTML = createCard(pharmaInfo);
+  document.getElementById('card-container').style.display = 'block';
+}
 
-const  sanitizeHTML = (strings) => {
-  const entities = {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'};
-  let result = strings[0];
-  return result;
-  for (let i = 1; i < arguments.length; i++) {
-    result += String(arguments[i]).replace(/[&<>'"]/g, (char) => {
-      return entities[char];
-    });
-    result += strings[i];
+const closeCard = () => {
+  document.getElementById('card-container').style.display = 'none';
+}
+
+const selectOption = (opt) => {
+  if (window.TC_PHARMACY === undefined) {
+    return
   }
-  return result;
+
+  window.TC_PHARMACY.kind = opt;
+  let Android = window.Android || {};
+  Android.pharmaOrder(window.TC_PHARMACY)
+  return window.TC_PHARMACY;
 }
-
-function setapoid(id) {
-  window.APO_ID = id;
-  console.log(window.APO_ID);
-}
-
-
 
 function initMap() {
 
@@ -91,16 +104,6 @@ function initMap() {
   // Load the stores GeoJSON onto the map.
   map.data.loadGeoJson('stores.json');
 
-  // Define the custom marker icons, using the store's "category".
-  // map.data.setStyle(feature => {
-  //   return {
-  //     icon: {
-  //       url: `img/icons8-marker-80.png`,
-  //       scaledSize: new google.maps.Size(40, 40)
-  //     }
-  //   };
-  // });
-  // console.log(map.data)
 
   const apiKey = 'AIzaSyALb9lFprUdP6ot-Wc-U1QCWvX3PXNgLu0';
   const infoWindow = new google.maps.InfoWindow();
@@ -108,35 +111,20 @@ function initMap() {
 
   // Show the information for a store when its marker is clicked.
   map.data.addListener('click', event => {
-    const category = event.feature.getProperty('category');
-    const name = event.feature.getProperty('name');
-    const description = event.feature.getProperty('description');
-    const hours = event.feature.getProperty('hours');
-    const phone = event.feature.getProperty('phone');
-    const position = event.feature.getGeometry().get();
-    const id = event.feature.getProperty('id');
+    const pharmaInfo = {};
+    pharmaInfo.name = event.feature.getProperty('name');
+    pharmaInfo.hours = event.feature.getProperty('hours');
+    pharmaInfo.phone = event.feature.getProperty('phone');
+    pharmaInfo.position = event.feature.getGeometry().get();
+    pharmaInfo.id = event.feature.getProperty('id');
 
-    // const content = sanitizeHTML`
-    //     <h2>${name}</h2><p>${description}</p>
-    //     <p><b>Open:</b> ${hours}<br/><b>Phone:</b> ${phone}</p>
-    //     <p>
-    //     <a href="#" class="cta-btn" onclick="setapoid(${id})" >Abholen</a>
-    //     <a href="#" class="cta-btn" onclick="setapoid(${id})" >Liefern lassen</a>
-    //     </p>
-    // `;
+    showCard(pharmaInfo)
+    window.TC_PHARMACY = pharmaInfo;
 
-    // infoWindow.setContent(content);
-    // infoWindow.setPosition(position);
-    document.getElementById('card-container').innerHTML = displayCard();
-    document.getElementById('card-container').style.display = 'block';
-
-    map.setCenter(position);
-    //infoWindow.open(map);
+    map.setCenter(pharmaInfo.position);
   });
 
 }
 
-const closeCard = () => {
-  document.getElementById('card-container').style.display = 'none';
-}
+
 
