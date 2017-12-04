@@ -106,11 +106,24 @@ function initMap() {
 
   // Load the stores GeoJSON onto the map.
   map.data.loadGeoJson('stores.json');
+  infoWindow = new google.maps.InfoWindow;
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
 
+      infoWindow.setPosition(pos);
+      infoWindow.setContent('Sie sind hier.');
+      infoWindow.open(map);
+      map.setCenter(pos);
+    });
+  }
 
   const apiKey = 'AIzaSyALb9lFprUdP6ot-Wc-U1QCWvX3PXNgLu0';
-  const infoWindow = new google.maps.InfoWindow();
-  infoWindow.setOptions({pixelOffset: new google.maps.Size(0, -30)});
+//   const infoWindow = new google.maps.InfoWindow();
+//   infoWindow.setOptions({pixelOffset: new google.maps.Size(0, -30)});
 
   // Show the information for a store when its marker is clicked.
   map.data.addListener('click', event => {
