@@ -107,17 +107,25 @@ function initMap() {
   // Load the stores GeoJSON onto the map.
   map.data.loadGeoJson('stores.json');
   infoWindow = new google.maps.InfoWindow;
+
+
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
       var pos = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
+      map.setCenter(pos);
 
-      infoWindow.setPosition(pos);
+      var marker = new google.maps.Marker({
+        position: map.getCenter(),
+        icon: 'img/here-marker.png',
+        map: map
+      });
+      infoWindow.setPosition(map.getCenter());
       infoWindow.setContent('Sie sind hier.');
       infoWindow.open(map);
-      map.setCenter(pos);
+
     });
   }
 
