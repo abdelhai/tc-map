@@ -172,8 +172,8 @@ function initMap() {
   });
 
 
-  map.addListener('click', closeCard, false)
-  map.addListener('dragstart', closeCard, false)
+  map.addListener('click', handleMapInteractions, false)
+  map.addListener('dragstart', handleMapInteractions, false)
 
 }
 
