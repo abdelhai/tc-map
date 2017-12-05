@@ -12,7 +12,7 @@ function sanitizeHTML(strings) {
 }
 
 function createCard(pharmaInfo) {
-  let {name, phone, hours} = pharmaInfo;
+  let { name, phone, hours, address, addressLink} = pharmaInfo;
   return sanitizeHTML`
     <div id="pharmacy-details" class="pharmacy-div">
       <div class="pharmacy-card">
@@ -33,7 +33,7 @@ function createCard(pharmaInfo) {
                     <img src="img/0379-map-marker.svg"></img>
                 </td>
                 <td style="width: 80%">
-                    Landwehrstraße 83, 80336 München
+                <a href="${addressLink}">${address}</a>
                 </td>
             </tr>
             <tr style="width:100%;">
@@ -41,7 +41,7 @@ function createCard(pharmaInfo) {
                     <img src="img/0363-telephone.svg"></img>
                 </td>
                 <td style="width: 80%">
-                    ${phone}
+                <a href="tel:${phone}">${phone}</a>
                 </td>
             </tr>
             <tr style="width:100%;">
@@ -67,6 +67,13 @@ function createCard(pharmaInfo) {
       </table>
     </div>
 `
+}
+
+const buildSearch = (pos, limit = 10) => {
+  let {lat, lng} = pos;
+  let url =  'https://27128ad0.ngrok.io/v2/pharmacies/pharmacies/';
+  return `${url}?search[limit]=${limit}&search[offset]=0&search[sort]=1&search[location][geographicalPoint][latitude]=${lat}&search[location][geographicalPoint][longitude]=${lng}&search[radius]=2`;
+
 }
 
 const showCard = (pharmaInfo) => {
@@ -103,11 +110,8 @@ function initMap() {
     fullscreenControl: false
   });
 
-
   // Load the stores GeoJSON onto the map.
-  map.data.loadGeoJson('stores.json');
   infoWindow = new google.maps.InfoWindow;
-
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -116,6 +120,7 @@ function initMap() {
         lng: position.coords.longitude
       };
       map.setCenter(pos);
+      map.data.loadGeoJson(buildSearch(pos, 10));
 
       var marker = new google.maps.Marker({
         position: map.getCenter(),
@@ -130,8 +135,6 @@ function initMap() {
   }
 
   const apiKey = 'AIzaSyALb9lFprUdP6ot-Wc-U1QCWvX3PXNgLu0';
-//   const infoWindow = new google.maps.InfoWindow();
-//   infoWindow.setOptions({pixelOffset: new google.maps.Size(0, -30)});
 
   // Show the information for a store when its marker is clicked.
   map.data.addListener('click', event => {
@@ -139,6 +142,8 @@ function initMap() {
     pharmaInfo.name = event.feature.getProperty('name');
     pharmaInfo.hours = event.feature.getProperty('hours');
     pharmaInfo.phone = event.feature.getProperty('phone');
+    pharmaInfo.address = event.feature.getProperty('address');
+    pharmaInfo.addressLink = 'https://www.google.de/maps/place/' + pharmaInfo.address.replace(/\s/g, '+')
     pharmaInfo.position = event.feature.getGeometry().get();
     pharmaInfo.id = event.feature.getProperty('id');
 
