@@ -69,11 +69,11 @@ function createCard(pharmaInfo) {
 `
 }
 
-const buildSearch = (pos, limit = 10) => {
-  let {lat, lng} = pos;
+const pharmaSearch = (map, limit = 30) => {
+  let { lat, lng } = map.getCenter().toJSON();
   let url =  'https://27128ad0.ngrok.io/v2/pharmacies/pharmacies/';
-  return `${url}?search[limit]=${limit}&search[offset]=0&search[sort]=1&search[location][geographicalPoint][latitude]=${lat}&search[location][geographicalPoint][longitude]=${lng}&search[radius]=2`;
-
+  url = `${url}?search[limit]=${limit}&search[offset]=0&search[sort]=1&search[location][geographicalPoint][latitude]=${lat}&search[location][geographicalPoint][longitude]=${lng}&search[radius]=20`;
+  map.data.loadGeoJson(url);
 }
 
 const showCard = (pharmaInfo) => {
@@ -120,8 +120,7 @@ function initMap() {
         lng: position.coords.longitude
       };
       map.setCenter(pos);
-      map.data.loadGeoJson(buildSearch(pos, 10));
-
+      map.panTo(pos);
       var marker = new google.maps.Marker({
         position: map.getCenter(),
         icon: 'img/here-marker.png',
@@ -130,6 +129,8 @@ function initMap() {
       infoWindow.setPosition(map.getCenter());
       infoWindow.setContent('Sie sind hier.');
       infoWindow.open(map);
+      pharmaSearch(map);
+
 
     });
   }
@@ -149,8 +150,15 @@ function initMap() {
 
     showCard(pharmaInfo)
     window.TC_PHARMACY = pharmaInfo;
-
     map.setCenter(pharmaInfo.position);
+    map.panTo(pharmaInfo.position)
+  });
+
+  map.addListener('dragend', function () {
+    let idleListener = map.addListener('idle', function () {
+      google.maps.event.removeListener(idleListener);
+      pharmaSearch(map);
+    });
   });
 
 }
