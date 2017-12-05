@@ -175,6 +175,29 @@ function initMap() {
   map.addListener('click', handleMapInteractions, false)
   map.addListener('dragstart', handleMapInteractions, false)
 
+  let autocomplete = new google.maps.places.Autocomplete(document.getElementById('query'));
+  autocomplete.bindTo('bounds', map);
+  autocomplete.setTypes(['geocode']);
+
+  autocomplete.addListener('place_changed', function () {
+    var marker = new google.maps.Marker({
+      map: map,
+      icon: 'img/here-marker.png',
+    });
+    var place = autocomplete.getPlace();
+
+    // If the place has a geometry, then present it on a map.
+    if (place.geometry.viewport) {
+      map.fitBounds(place.geometry.viewport);
+    } else {
+      map.setCenter(place.geometry.location);
+      map.setZoom(14);  // Why 17? Because it looks good.
+    }
+    marker.setPosition(place.geometry.location);
+    marker.setVisible(true);
+    pharmaSearch(map)
+  });
+
 }
 
 
