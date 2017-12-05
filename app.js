@@ -69,10 +69,10 @@ function createCard(pharmaInfo) {
 `
 }
 
-const pharmaSearch = (map, limit = 30) => {
+const pharmaSearch = (map, limit = 10) => {
   let { lat, lng } = map.getCenter().toJSON();
   let url =  'https://27128ad0.ngrok.io/v2/pharmacies/pharmacies/';
-  url = `${url}?search[limit]=${limit}&search[offset]=0&search[sort]=1&search[location][geographicalPoint][latitude]=${lat}&search[location][geographicalPoint][longitude]=${lng}&search[radius]=20`;
+  url = `${url}?search[limit]=${limit}&search[offset]=0&search[sort]=1&search[location][geographicalPoint][latitude]=${lat}&search[location][geographicalPoint][longitude]=${lng}&search[radius]=2`;
   map.data.loadGeoJson(url);
 }
 
