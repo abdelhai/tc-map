@@ -99,6 +99,11 @@ const selectOption = (opt) => {
   return window.TC_PHARMACY;
 }
 
+const handleMapInteractions = () => {
+  closeCard();
+  document.getElementById('map').focus();
+}
+
 function initMap() {
 
   // Create the map.
@@ -154,12 +159,16 @@ function initMap() {
     map.panTo(pharmaInfo.position)
   });
 
-  map.addListener('dragend', function () {
+  map.addListener('dragend', () => {
     let idleListener = map.addListener('idle', function () {
       google.maps.event.removeListener(idleListener);
       pharmaSearch(map);
     });
   });
+
+
+  map.addListener('click', closeCard, false)
+  map.addListener('dragstart', closeCard, false)
 
 }
 
