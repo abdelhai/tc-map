@@ -69,11 +69,25 @@ function createCard(pharmaInfo) {
 `
 }
 
+const timeToString = time => {
+  return `${time.getFullYear()}-${time.getMonth()+1}-${time.getDate()}%20${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`;
+}
+
 const pharmaSearch = (map, limit = 10) => {
   let { lat, lng } = map.getCenter().toJSON();
-  let url =  'https://27128ad0.ngrok.io/v2/pharmacies/pharmacies/';
+  let now = new Date();
+  let startDT = timeToString(now);
+  now.setHours(now.getHours() + 2); // add 2 hours
+  let endDT = timeToString(now);
+  let url = 'https://eddd21fa.ngrok.io/v2/pharmacies/pharmacies/';
   url = `${url}?search[limit]=${limit}&search[offset]=0&search[sort]=1&search[location][geographicalPoint][latitude]=${lat}&search[location][geographicalPoint][longitude]=${lng}&search[radius]=2`;
-  map.data.loadGeoJson(url);
+
+  if (document.getElementById('emergency').checked) {
+    map.data.forEach(feature => map.data.remove(feature))
+    url += `&search[startDateTime]=${startDT}&search[endDateTime]=${endDT}`
+    url += '&notdienst=1'
+  }
+  map.data.loadGeoJson(url)
 }
 
 const showCard = (pharmaInfo) => {
@@ -109,6 +123,9 @@ const handleMapInteractions = () => {
   hideKeyboard();
 }
 
+const clearMap = () => {
+
+}
 function initMap() {
 
   // Create the map.
@@ -197,6 +214,10 @@ function initMap() {
     marker.setVisible(true);
     pharmaSearch(map)
   });
+
+  document.getElementById('emergency').addEventListener('click', event => {
+    pharmaSearch(map);
+  })
 
 }
 
