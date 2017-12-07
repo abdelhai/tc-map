@@ -86,8 +86,16 @@ const pharmaSearch = (map, limit = 10) => {
     map.data.forEach(feature => map.data.remove(feature))
     url += `&search[startDateTime]=${startDT}&search[endDateTime]=${endDT}`
     url += '&notdienst=1'
+    url.replace('search[radius]=2', 'search[radius]=10')
   }
   map.data.loadGeoJson(url)
+  map.data.setStyle(feature => {
+    return {
+      icon: {
+        url: `img/icon_pharmacy.png`,
+      }
+    };
+  });
 }
 
 const showCard = (pharmaInfo) => {
