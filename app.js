@@ -77,16 +77,17 @@ const pharmaSearch = (map, limit = 10) => {
   let { lat, lng } = map.getCenter().toJSON();
   let now = new Date();
   let startDT = timeToString(now);
-  now.setHours(now.getHours() + 2); // add 2 hours
+  now.setHours(now.getHours() + 10); // add 2 hours
   let endDT = timeToString(now);
-  let url = 'https://eddd21fa.ngrok.io/v2/pharmacies/pharmacies/';
+  let url = 'https://03f7f70f.ngrok.io/v2/pharmacies/pharmacies/';
   url = `${url}?search[limit]=${limit}&search[offset]=0&search[sort]=1&search[location][geographicalPoint][latitude]=${lat}&search[location][geographicalPoint][longitude]=${lng}&search[radius]=2`;
+  url += '&search[membersOnly]=true';
 
   if (document.getElementById('emergency').checked) {
-    map.data.forEach(feature => map.data.remove(feature))
-    url += `&search[startDateTime]=${startDT}&search[endDateTime]=${endDT}`
-    url += '&notdienst=1'
-    url.replace('search[radius]=2', 'search[radius]=10')
+    map.data.forEach(feature => map.data.remove(feature));
+    url += `&search[startDateTime]=${startDT}&search[endDateTime]=${endDT}`;
+    url += '&notdienst=1';
+    url.replace('search[radius]=2', 'search[radius]=10');
   }
   map.data.loadGeoJson(url)
   map.data.setStyle(feature => {
