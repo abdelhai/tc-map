@@ -12,7 +12,7 @@ function sanitizeHTML(strings) {
 }
 
 function createCard(pharmaInfo) {
-  let { name, phone, hours, address, addressLink} = pharmaInfo;
+  let { name, phone, hours, address, addressLink, reservation, delivery} = pharmaInfo;
   return sanitizeHTML`
     <div id="pharmacy-details" class="pharmacy-div">
       <div class="pharmacy-card">
@@ -46,7 +46,7 @@ function createCard(pharmaInfo) {
             </tr>
             <tr style="width:100%;">
                 <td style="width: 10%">
-                    <img src="img/0803-magnifier.svg"></img>
+                    <img src="img/0745-clock3.svg"></img>
                 </td>
                 <td style="width: 80%">
                     Öffnungszeiten: ${hours}
@@ -57,11 +57,12 @@ function createCard(pharmaInfo) {
 
       <table class="bottom-table">
           <tr style="width:100%;">
-              <td style="width: 50%;align-content:center">
-                  <button onclick="selectOption('delivery')" class="btn" style="margin-right:8px;" type="button">DELIVERY</button>
+              <td style="width: 50%;align-content:center;display:${reservation ? 'block' : 'none'};">
+                  <button onclick="selectOption('pickup')" class="btn" style="margin-right:8px;" type="button">RESERVIEREN</button>
+
               </td>
-              <td style="width: 50%;align-content:center">
-                  <button onclick="selectOption('pickup')" class="btn" style="margin-left:8px;" type="button">PICK UP</button>
+              <td style="width: 50%;align-content:center;display:${delivery ? 'block' : 'none'};">
+                  <button onclick="selectOption('delivery')" class="btn" style="margin-left:8px;" type="button" >DELIVERY</button>
               </td>
           </tr>
       </table>
@@ -79,7 +80,7 @@ const pharmaSearch = (map, limit = 10) => {
   let startDT = timeToString(now);
   now.setHours(now.getHours() + 10); // add 2 hours
   let endDT = timeToString(now);
-  let url = 'https://03f7f70f.ngrok.io/v2/pharmacies/pharmacies/';
+  let url = 'https://03776215.ngrok.io/v2/pharmacies/pharmacies/';
   url = `${url}?search[limit]=${limit}&search[offset]=0&search[sort]=1&search[location][geographicalPoint][latitude]=${lat}&search[location][geographicalPoint][longitude]=${lng}&search[radius]=2`;
   url += '&search[membersOnly]=true';
 
@@ -180,6 +181,8 @@ function initMap() {
     pharmaInfo.hours = event.feature.getProperty('hours');
     pharmaInfo.phone = event.feature.getProperty('phone');
     pharmaInfo.address = event.feature.getProperty('address');
+    pharmaInfo.delivery = event.feature.getProperty('delivery');
+    pharmaInfo.reservation = event.feature.getProperty('reservation');
     pharmaInfo.addressLink = 'https://www.google.de/maps/place/' + pharmaInfo.address.replace(/\s/g, '+')
     pharmaInfo.position = event.feature.getGeometry().get();
     pharmaInfo.id = event.feature.getProperty('id');
