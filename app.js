@@ -55,10 +55,10 @@ function createCard(pharmaInfo) {
         </table>
       </div>
 
-      <table class="bottom-table">
+      <table class="bottom-table" style="${document.location.search.indexOf('browsing=true') === -1 ? '' : 'display:none'}">
           <tr style="width:100%;">
               <td style="width: 50%;align-content:center;display:${reservation ? 'block' : 'none'};">
-                  <button onclick="selectOption('pickup')" class="btn" style="margin-right:8px;" type="button">RESERVIEREN</button>
+                  <button onclick="selectOption('reservation')" class="btn" style="margin-right:8px;" type="button">RESERVIEREN</button>
 
               </td>
               <td style="width: 50%;align-content:center;display:${delivery ? 'block' : 'none'};">
@@ -95,7 +95,7 @@ const pharmaSearch = (map, limit = 20) => {
 
   if (document.getElementById('delivery').checked) {
     map.data.forEach(feature => map.data.remove(feature));
-    url += '&search[services]=99';
+    url += '&search[services]=99'; // TODO: fix me
   }
 
   map.data.loadGeoJson(url)
@@ -118,14 +118,19 @@ const closeCard = () => {
 }
 
 const selectOption = (opt) => {
+  console.log(TC_PHARMACY)
   if (window.TC_PHARMACY === undefined) {
     return
   }
 
   window.TC_PHARMACY.kind = opt;
-  let Android = window.Android || {};
   if (window.Android) {
-    Android.pharmaOrder(window.TC_PHARMACY)
+    if (window.TC_PHARMACY.kind === 'delivery') {
+      window.Android.deliverPrescription(window.TC_PHARMACY.id);
+      return
+    }
+
+    window.Android.reservePrescription(window.TC_PHARMACY.id);
   }
 
   return window.TC_PHARMACY;
