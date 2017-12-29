@@ -89,10 +89,15 @@ const pharmaSearch = (map, limit = 20) => {
     url += `&search[startDateTime]=${startDT}&search[endDateTime]=${endDT}`;
     url += '&notdienst=1';
   }
-  // if (document.getElementById('delivery').checked) {
-  //   map.data.forEach(feature => map.data.remove(feature));
-  //   url += '&search[services]=1';
-  // }
+  if (document.location.search.indexOf('browsing=true') != -1) {
+    url += '&search[services]=98';
+  }
+
+  if (document.getElementById('delivery').checked) {
+    map.data.forEach(feature => map.data.remove(feature));
+    url += '&search[services]=99';
+  }
+
   map.data.loadGeoJson(url)
   map.data.setStyle(feature => {
     return {
