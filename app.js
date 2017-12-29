@@ -33,7 +33,7 @@ function createCard(pharmaInfo) {
                     <img src="img/0379-map-marker.svg"></img>
                 </td>
                 <td style="width: 80%">
-                <a href="${addressLink}">${address}</a>
+                <a href="${addressLink}" target="_blank">${address}</a>
                 </td>
             </tr>
             <tr style="width:100%;">
@@ -49,7 +49,7 @@ function createCard(pharmaInfo) {
                     <img src="img/0745-clock3.svg"></img>
                 </td>
                 <td style="width: 80%">
-                    Öffnungszeiten: ${hours}
+                    <pre>${hours}</pre>
                 </td>
             </tr>
         </table>
@@ -74,22 +74,25 @@ const timeToString = time => {
   return `${time.getFullYear()}-${time.getMonth()+1}-${time.getDate()}%20${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`;
 }
 
-const pharmaSearch = (map, limit = 10) => {
+const pharmaSearch = (map, limit = 20) => {
   let { lat, lng } = map.getCenter().toJSON();
   let now = new Date();
   let startDT = timeToString(now);
   now.setHours(now.getHours() + 10); // add 2 hours
   let endDT = timeToString(now);
   let url = 'https://03776215.ngrok.io/v2/pharmacies/pharmacies/';
-  url = `${url}?search[limit]=${limit}&search[offset]=0&search[sort]=1&search[location][geographicalPoint][latitude]=${lat}&search[location][geographicalPoint][longitude]=${lng}&search[radius]=2`;
+  url = `${url}?search[limit]=${limit}&search[offset]=0&search[sort]=1&search[location][geographicalPoint][latitude]=${lat}&search[location][geographicalPoint][longitude]=${lng}&search[radius]=10`;
   url += '&search[membersOnly]=true';
 
   if (document.getElementById('emergency').checked) {
     map.data.forEach(feature => map.data.remove(feature));
     url += `&search[startDateTime]=${startDT}&search[endDateTime]=${endDT}`;
     url += '&notdienst=1';
-    url.replace('search[radius]=2', 'search[radius]=10');
   }
+  // if (document.getElementById('delivery').checked) {
+  //   map.data.forEach(feature => map.data.remove(feature));
+  //   url += '&search[services]=1';
+  // }
   map.data.loadGeoJson(url)
   map.data.setStyle(feature => {
     return {
@@ -183,7 +186,7 @@ function initMap() {
     pharmaInfo.address = event.feature.getProperty('address');
     pharmaInfo.delivery = event.feature.getProperty('delivery');
     pharmaInfo.reservation = event.feature.getProperty('reservation');
-    pharmaInfo.addressLink = 'https://www.google.de/maps/place/' + pharmaInfo.address.replace(/\s/g, '+')
+    pharmaInfo.addressLink = 'https://www.google.de/maps/dir//' + pharmaInfo.address.replace(/\s/g, '+')
     pharmaInfo.position = event.feature.getGeometry().get();
     pharmaInfo.id = event.feature.getProperty('id');
 
@@ -220,7 +223,7 @@ function initMap() {
       map.fitBounds(place.geometry.viewport);
     } else {
       map.setCenter(place.geometry.location);
-      map.setZoom(14);  // Why 17? Because it looks good.
+      map.setZoom(14);
     }
     marker.setPosition(place.geometry.location);
     marker.setVisible(true);
@@ -228,6 +231,9 @@ function initMap() {
   });
 
   document.getElementById('emergency').addEventListener('click', event => {
+    pharmaSearch(map);
+  })
+  document.getElementById('delivery').addEventListener('click', event => {
     pharmaSearch(map);
   })
 
