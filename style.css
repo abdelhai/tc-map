@@ -218,6 +218,11 @@ fieldset {
   }
 }
 
+.btn-wrapper {
+  width:100%;
+  align-content:center;
+}
+
 @media screen and (min-width: 800px){
   .pharmacy-card{
     margin-left: 30%;

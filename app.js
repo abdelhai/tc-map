@@ -55,17 +55,17 @@ function createCard(pharmaInfo) {
         </table>
       </div>
 
-      <table class="bottom-table" style="${document.location.search.indexOf('browsing=true') === -1 ? '' : 'display:none'}">
-          <tr style="width:100%;">
-              <td style="width: 50%;align-content:center;display:${reservation ? 'block' : 'none'};">
+      <div class="bottom-table" style="${document.location.search.indexOf('browsing=true') === -1 ? '' : 'display:none'}">
+          <div style="width:100%;display:flex;flex-direction:row">
+              <div class="btn-wrapper" style="display:${reservation ? '' : 'none'};">
                   <button onclick="selectOption('reservation')" class="btn" style="margin-right:8px;" type="button">RESERVIEREN</button>
 
-              </td>
-              <td style="width: 50%;align-content:center;display:${delivery ? 'block' : 'none'};">
+              </div>
+              <div class="btn-wrapper" style="display:${delivery ? '' : 'none'};">
                   <button onclick="selectOption('delivery')" class="btn" style="margin-left:8px;" type="button" >DELIVERY</button>
-              </td>
-          </tr>
-      </table>
+              </div>
+          </div>
+      </div>
     </div>
 `
 }
@@ -80,7 +80,7 @@ const pharmaSearch = (map, limit = 20) => {
   let startDT = timeToString(now);
   now.setHours(now.getHours() + 2); // add 2 hours
   let endDT = timeToString(now);
-  let url = 'https://afa4a461.ngrok.io/v2/pharmacies/pharmacies/';
+  let url = window.TC_APO_URL;
   url = `${url}?search[limit]=${limit}&search[offset]=0&search[sort]=1&search[location][geographicalPoint][latitude]=${lat}&search[location][geographicalPoint][longitude]=${lng}&search[radius]=10`;
   url += '&search[membersOnly]=true';
 
@@ -95,7 +95,7 @@ const pharmaSearch = (map, limit = 20) => {
 
   if (document.getElementById('delivery').checked) {
     map.data.forEach(feature => map.data.remove(feature));
-    url += '&search[services]=99'; // TODO: fix me
+    url += '&search[services]=99'; // TODO: fix me (Waiting for Thomas to reply)
   }
 
   map.data.loadGeoJson(url)
