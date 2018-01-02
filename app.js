@@ -78,9 +78,9 @@ const pharmaSearch = (map, limit = 20) => {
   let { lat, lng } = map.getCenter().toJSON();
   let now = new Date();
   let startDT = timeToString(now);
-  now.setHours(now.getHours() + 10); // add 2 hours
+  now.setHours(now.getHours() + 2); // add 2 hours
   let endDT = timeToString(now);
-  let url = 'https://03776215.ngrok.io/v2/pharmacies/pharmacies/';
+  let url = 'https://afa4a461.ngrok.io/v2/pharmacies/pharmacies/';
   url = `${url}?search[limit]=${limit}&search[offset]=0&search[sort]=1&search[location][geographicalPoint][latitude]=${lat}&search[location][geographicalPoint][longitude]=${lng}&search[radius]=10`;
   url += '&search[membersOnly]=true';
 
